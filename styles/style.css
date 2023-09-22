@@ -1,0 +1,22 @@
+.card{
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+.card:hover{
+    box-shadow: 5px 64px 6px 2px #e9ecef;
+    transform: scale(1.1);
+}
+
+/* drag drop */
+
+
+#drag-and-drop-container {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+/* drag drop */
