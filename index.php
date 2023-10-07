@@ -8,48 +8,44 @@
 <!-- TABLA DE TAREAS -->
         
 <div class="col-md-12">
-
     <h1 class="title mb-5">Historial partidos vistos en cancha</h1>
-
     <div class="table-responsive">
-        <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">PARTIDOS</th>
-                            <th scope="col">RESULTADO</th>
-                            <th scope="col">FECHA</th>
-                            <th scope="col">COMPETENCIA</th>
-                            <th scope="col">LINK</th>
-                            <th scope="col">ACCIONES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query = "SELECT * FROM partidos ORDER BY fecha DESC";
-                        $resultTask = mysqli_query($conn, $query);
+        <table id="myTable" class="table"> 
+            <thead>
+                <tr>
+                    <th scope="col">PARTIDOS</th>
+                    <th scope="col">RESULTADO</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">COMPETENCIA</th>
+                    <th scope="col">LINK</th>
+                    <th scope="col">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $query = "SELECT * FROM partidos ORDER BY fecha DESC";
+                    $resultTask = mysqli_query($conn, $query);
 
-                        while ($row = mysqli_fetch_assoc($resultTask)) {
-                            // Aquí dentro del bucle while, puedes acceder a los datos de cada fila
-                            $rowColorClass = ''; // Puedes definir la clase CSS según tus necesidades
+                    while ($row = mysqli_fetch_assoc($resultTask)) {
+                        $rowColorClass = ''; // Puedes definir la clase CSS según tus necesidades
 
-                            echo '<tr class="' . $rowColorClass . '">';
-                            echo '<td>' . $row['partido'] . '</td>';
-                            echo '<td>' . $row['resultado'] . '</td>';
-                            echo '<td>' . $row['fecha'] . '</td>';
-                            echo '<td>' . $row['competencia'] . '</td>';
-                            echo '<td><a href="' . $row['link'] . '" class="btn btn-primary" target="_blank">Resumen</a></td>';
-                            echo '<td>';
-                            echo '<a href="edit.php?id=' . $row['id'] . '" class="btn btn-dark">Editar</a>';
-                            // echo '<a href="delete-task.php?id=' . $row['id'] . '" class="btn btn-success">Finalizado</a>';
-                            echo '</td>';
-                            echo '</tr>';
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- TABLA DE TAREAS -->
+                        echo '<tr class="' . $rowColorClass . '">';
+                        echo '<td>' . $row['partido'] . '</td>';
+                        echo '<td>' . $row['resultado'] . '</td>';
+                        echo '<td>' . $row['fecha'] . '</td>';
+                        echo '<td>' . $row['competencia'] . '</td>';
+                        echo '<td><a href="' . $row['link'] . '" class="btn btn-primary" target="_blank">Resumen</a></td>';
+                        echo '<td>';
+                        echo '<a href="edit.php?id=' . $row['id'] . '" class="btn btn-dark">Editar</a>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+ <!-- TABLA DE TAREAS -->
         
         <!--TABLA PARTIDO MAS RECIENTE -->
         <div class="col-md-12">
@@ -82,8 +78,6 @@
                                     echo '<td>' . $row['fecha'] . '</td>';
                                     echo '<td>' . $row['competencia'] . '</td>';
                                     echo '<td><a href="' . $row['link'] . '" class="btn btn-primary" target="_blank">Resumen</a></td>';
-                                    echo '<td>';
-                                    echo '</td>';
                                     echo '</tr>';
                                 } else {
                                     echo '<tr><td colspan="6">No hay partidos registrados</td></tr>';
@@ -143,9 +137,20 @@
 
         <!-- partidos en el anio -->
         
-        
     </div>
-        <?php include("includes/footer.php")?>
+
+    
+        <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                "paging": true,       
+                "pageLength": 10 , 
+                autoFill: true,
+            });
+        });
+        </script>
+
+<?php include("includes/footer.php")?>
         
         
         
