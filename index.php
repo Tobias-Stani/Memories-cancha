@@ -23,8 +23,10 @@
             </thead>
             <tbody>
                 <?php
+
                     $query = "SELECT * FROM partidos ORDER BY fecha DESC";
                     $resultTask = mysqli_query($conn, $query);
+
 
                     while ($row = mysqli_fetch_assoc($resultTask)) {
                         $rowColorClass = ''; // Puedes definir la clase CSS según tus necesidades
@@ -45,6 +47,22 @@
         </table>
     </div>
 </div>
+
+<!-- Inicializa DataTables en la tabla -->
+<script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        "paging": true,
+        "pageLength": 5,
+        "searching": true,
+        "order": [[2, "desc"]] ,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+        }    
+    });
+});
+</script>
+
  <!-- TABLA DE TAREAS -->
         
         <!--TABLA PARTIDO MAS RECIENTE -->
@@ -139,16 +157,6 @@
         
     </div>
 
-    
-        <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable({
-                "paging": true,       
-                "pageLength": 10 , 
-                autoFill: true,
-            });
-        });
-        </script>
 
 <?php include("includes/footer.php")?>
         
